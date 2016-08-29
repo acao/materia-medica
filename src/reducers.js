@@ -2,48 +2,37 @@ import { combineReducers } from 'redux'
 import * as ActionTypes from './constants'
 import { routerReducer } from 'react-router-redux'
 
+import { sampleEntries } from "./utils/fixtures"
+
 const initialState = {
-  dataset: {
-    results: [],
-    valid: true,
-    data: []
+  entries: {
+    data: [ ...sampleEntries ],
+    currentEntry: {},
+    count: 0
+  },
+  ui: {
+    leftTrayOpen: false,
+    autocomplete: {
+      taxo: [],
+      selected: ''
+    }
   }
 }
-
-const table = createReducer([], {
-  [ActionTypes.TABLE_CELL_SELECT](state, action) {
-    const text = action.text.trim()
-    return [ ...state, text ]
+const entries = createReducer(initialState.entries, {
+  [ActionTypes.GET_ENTRIES](state, { entries }) {
+    return Object.assign({}, state, { data: entries })
   },
-  [ActionTypes.TABLE_CELL_CHANGE](state) {
-    return [ ...state ]
-  },
-  [ActionTypes.TABLE_CELL_EXIT](state) {
-    return [ ...state ]
-  },
-  [ActionTypes.TABLE_PASTE](state) {
-    return [ ...state ]
-  },
-  [ActionTypes.TABLE_ADD_ROW](state) {
-    return [ ...state ]
-  },
-  [ActionTypes.TABLE_DEL_ROW](state) {
-    return [ ...state ]
+  [ActionTypes.GET_ENTRY](state, { entryID }) {
+    return Object.assign({}, state, { entries })
   }
 })
 
-const dataset = createReducer(initialState.dataset, {
-  [ActionTypes.DATASET_SET](state, data) {
-    return Object.assign({}, state, { data: data.data })
+const ui = createReducer(initialState.ui, {
+  [ActionTypes.SET_UI_OPTIONS](state, { options }) {
+    return Object.assign({}, state.ui.options, { options })
   },
-  [ActionTypes.DATASET_SET_OPTIONS](state, data) {
-    return Object.assign({}, state, { options: data.options })
-  },
-  [ActionTypes.DATASET_VALIDATE](state, valid) {
-    return [ ...state, { valid } ]
-  },
-  [ActionTypes.DATASET_CALCULATE_RESULTS](state, { data }) {
-    return Object.assign({}, state, { results: data })
+  [ActionTypes.AUTOCOMPLETE_TAXO](state, { response }) {
+    return Object.assign({}, state.ui.autocomplete.taxo, { response })
   }
 })
 
@@ -58,8 +47,8 @@ function createReducer(initialState, handlers) {
 }
 
 const rootReducer = combineReducers({
-  dataset,
-  table,
+  ui,
+  entries,
   routing: routerReducer
 })
 

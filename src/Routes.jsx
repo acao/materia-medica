@@ -6,12 +6,8 @@ import store from './store'
 
 // Containers
 import Main from './containers/Main'
-import Welcome from './containers/Welcome'
-import EditDataTable from './containers/EditDataTable'
-import UploadData from './containers/UploadData'
-import ReviewData from './containers/ReviewData'
-import CalculateData from './containers/CalculateData'
-import ReviewResults from './containers/ReviewResults'
+import Entries from './containers/Entries'
+import Entry from './containers/Entry'
 
 const history = syncHistoryWithStore(browserHistory, store)
 
@@ -24,12 +20,8 @@ class Routes extends Component {
       <Provider store={store}>
           <Router history={history}>
             <Route path="/" component={Main}>
-              <IndexRoute component={Welcome} />
-              <Route path="edit-data" component={EditDataTable} />
-              <Route path="upload-data" component={UploadData} />
-              <Route path="review-data" component={ReviewData} />
-              <Route path="calculate-data" component={CalculateData} />
-              <Route path="review-results" component={ReviewResults} />
+              <IndexRoute component={Entries} />
+              <Route path="entries/:entryID" component={Entry} />
             </Route>
           </Router>
       </Provider>

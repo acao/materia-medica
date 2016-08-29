@@ -51,7 +51,9 @@ module.exports = {
 		// embed the webpack-dev-server runtime into the bundle
 		inline: true,
 		// serve index.html in place of 404 responses to allow HTML5 history
-		historyApiFallback: true,
+		historyApiFallback: {
+		  index: '/'
+		},
 		port: PORT,
 		host: HOST
 	},
@@ -60,7 +62,7 @@ module.exports = {
 		new webpack.HotModuleReplacementPlugin(),
 		new HtmlWebpackPlugin({
 			template: './src/index.html',
-      title: 'Rainfall Calculator'
+      title: 'Materia Medica'
 		})
 	]
 };

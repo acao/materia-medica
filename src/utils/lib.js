@@ -12,3 +12,7 @@ export function reverseData(data) {
   }
   else return []
 }
+
+export function dedent(string) {
+  return string.replace(/(\r\n|\n|\r)/gm,'').replace('\t','')
+}

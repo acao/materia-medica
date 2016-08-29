@@ -1,49 +1,39 @@
-import 'whatwg-fetch'
-import { calc } from './utils/http'
-import { processFileInput } from './utils/file'
+import { autocompletePlants } from './utils/sparql'
 
 const debug = require('debug')('actions')
 
-export function setData(data) {
+export function getEntries(entries) {
   return {
-    type: 'DATASET_SET',
-    data
-  }
-}
-export function setResults(data) {
-  return {
-    type: 'DATASET_CALCULATE_RESULTS',
-    data
+    type: 'GET_ENTRIES',
+    entries
   }
 }
 
-export function calculateData() {
-  return (dispatch, getState) => {
-    const data = getState().dataset.data
-    const getResults = calc(data)
-    getResults.then((data)=> {
-      dispatch(setResults(data))
-    })
-    .catch((err)=> {
-      dispatch(() => {
-        debug(err)
-        return {
-          type: 'DATASET_VALIDATE',
-          data: false
-        }
-      })
-    })
+export function setTaxoResults(results) {
+  return {
+    type: 'AUTOCOMPLETE_TAXO',
+    results
   }
 }
 
-export function importFiles(files) {
+export function autocompleteTaxo(searchText) {
   return (dispatch) => {
-    const processFiles = processFileInput(files)
-    processFiles.then((data) => {
-      dispatch(setData(data))
-    })
-    .catch((err) => {
-      debug(err)
-    })
+    const request = autocompletePlants(searchText)
+    request
+      .then((res)=>{
+        console.log(res)
+        dispatch(setTaxoResults(res))
+      })
+      .catch((err)=>{
+        console.log(err)
+        debug(err)
+      })
+  }
+}
+
+export function setUIOptions(options) {
+  return {
+    type: 'SET_UI_OPTIONS',
+    options
   }
 }
