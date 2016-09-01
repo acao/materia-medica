@@ -1,8 +1,8 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import TextField from 'material-ui/TextField'
-import { Card, CardTitle, CardText } from 'material-ui/Card'
-
+import { Card, CardHeader, CardActions, CardText } from 'material-ui/Card'
+import Chip from 'material-ui/Chip';
 import { Flex, Box } from 'reflexbox'
 
 import TopNav from '../components/TopNav'
@@ -17,23 +17,31 @@ class Entry extends React.Component {
     return (
       <div>
         <TopNav prevRoute={"/"} title={entry.title} />
-        <Flex p={2} >
-          <Box px={2} col={8}>
+        <Flex style={{ marginTop: 80}} p={2} >
+          <Box px={2} lg={8} md={6} sm={12} col={12}>
             {Object.keys(entry.sections).map((key) => {
               const section = entry.sections[key]
               return (
                 <Card>
-                  <CardTitle>{key}</CardTitle>
+                  <CardHeader title={<h2 style={{ padding: 0, margin: 0 }}>{key}</h2>} />
+                  <CardActions>
+                    <div>{section.items.map((item) => <Chip>{item}</Chip>)}</div>
+                  </CardActions>
                   <CardText>
-                      <p>{section.items.map(item => <span>{item}</span>)}</p>
-                      <p>{section.description}</p>
+                    {section.description}
                   </CardText>
                 </Card>
               )
             })}
           </Box>
-          <Box px={2} col={4} auto>
-            <img style={{height: 400}} src={entry.img} />
+          <Box px={2} lg={4} md={6} sm={12} col={12} auto>
+            <img
+              style={{
+                maxWidth: "100%",
+                height: "auto",
+                width: "auto\9"
+              }}
+               src={entry.img} />
           </Box>
         </Flex>
       </div>

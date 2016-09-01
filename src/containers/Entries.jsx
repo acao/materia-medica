@@ -12,7 +12,7 @@ class Entries extends React.Component {
     super(props)
   }
   componentWillMount() {
-    this.props.dispatch(getEntries([]))
+    //this.props.dispatch(getEntries([]))
   }
   render() {
     const { entries } = this.props
@@ -20,6 +20,7 @@ class Entries extends React.Component {
       <div style={{ paddingTop: 60 }}>
         <TopNav prevRoute={"/"} title="Entries" />
           <GridList
+            cols={3}
             cellHeight={300}
           >
           {entries.map((entry) => (

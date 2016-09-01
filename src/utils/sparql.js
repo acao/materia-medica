@@ -1,6 +1,5 @@
 import 'whatwg-fetch'
 import SparqlHttp from 'sparql-http-client'
-import { dedent } from './lib'
 SparqlHttp.fetch = fetch
 
 export function autocompletePlants(searchText) {

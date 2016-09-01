@@ -34,9 +34,9 @@ class TopNav extends React.Component {
       <div>
         <AppBar
           style={{ top: 0, position: 'fixed' }}
-          title={props.title}
+          title={<span>Materia Medica: <em>{this.props.title}</em></span>}
           iconElementLeft={<Link to={ props.prevRoute || '/'}><IconButton><ArrowBack color="white" /></IconButton></Link>}
-          iconElementRight={<TaxoName />}
+          iconElementRight={""}
         />
       </div>
     )

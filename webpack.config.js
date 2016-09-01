@@ -34,7 +34,8 @@ module.exports = {
 	devtool: process.env.WEBPACK_DEVTOOL || 'cheap-module-source-map',
 	output: {
 		path: path.join(__dirname, 'public'),
-		filename: 'bundle.js'
+		filename: 'bundle.js',
+		publicPath: '/'
 	},
 	resolve: {
 		extensions: ['', '.js', '.jsx']
@@ -49,11 +50,9 @@ module.exports = {
 		// enable HMR
 		hot: true,
 		// embed the webpack-dev-server runtime into the bundle
-		inline: true,
+		// inline: true,
 		// serve index.html in place of 404 responses to allow HTML5 history
-		historyApiFallback: {
-		  index: '/'
-		},
+		historyApiFallback: true,
 		port: PORT,
 		host: HOST
 	},

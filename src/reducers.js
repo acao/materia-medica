@@ -6,7 +6,7 @@ import { sampleEntries } from "./utils/fixtures"
 
 const initialState = {
   entries: {
-    data: [ ...sampleEntries ],
+    data: sampleEntries,
     currentEntry: {},
     count: 0
   },
